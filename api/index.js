@@ -17,7 +17,7 @@ export function useProducts() {
 
 export function useInverstors(productId) {
   return useQuery(["inverstors", productId], async () => {
-    const { data } = await axios.get(`${baseUrl}/products/${productId}/inverstors`);
+    const { data } = await axios.get(`${baseUrl}/inverstors?productId=${productId}`);
     return data;
   });
 }

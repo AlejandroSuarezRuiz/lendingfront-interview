@@ -1,5 +1,5 @@
 import nextConnect from 'next-connect';
-import middleware from '../../../utils/database';
+import middleware from '../../utils/database';
 
 /* /products endpoint
 Endpoint used to call the list of the products from the db.
