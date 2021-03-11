@@ -1,34 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Lengingfront Technical Interview
 
-## Getting Started
+The description of the technical test was described in the document send by Ruth.
+At the begining of the process I estimate 15 hours to complete the test.
+The final estimation was about 17 hours. The reason was because I decide to spend a bit more time in the API Mock part, using a serverless service from NextJs and a real DB (Mongo Atlas).
+In the next section i will explain the selected tools/architecture.
 
-First, run the development server:
+### Architecture
+The frontend framework was React, but at the top, i decide to use NextJs, a very powerfull framework for web applications wich help us with the directory structure and routes rendering. NextJs can be very easy deployed into Vercel, a service of static pages hosting + Esteroids. What are the esteroids? The abillity to create serverless function directly from the FrontEnd code, wich are automatically managed by vercel as AWS lambda functions. This is part of the JAM stack.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+I decide to add Typescript to the project to have a better management of the API data, and also to have a robust application. For the Styles i decide to use StyledComponents, a very interesting and elegant way to declare styles as a components. This can remplace the classic react css modules and give us a more clean code (Between others bennefits). In the project there are also 2 helpers. One for the API created with the serverless functions of NextJs and other for the frontend calls to the API. I decide to use also a great rect library called React-Query, wich help us to get the API calls with pretty good hooks.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Each component has their own Typescript interface to define props and all related to the component.
+In this case I implement two API calls:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- /products (Give us the list of all the products for filling the left sidebar).
+- /products/{productId}/inverstors (Give us all the inverstors for an specific product).
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+The respective interfaces are in `./components/syndication/interface.ts`.
+And are called `Product` and `Purchase`. Both methods are get, and you can review it live calling the api.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+I use the Free Cluster of MongoDb atlas to set the database, and with the serverless functions construct two very basic endpoints for retrive the data, inside the endpoinds is the little explanation.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+### Possible Improvements
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Being more strict with the gap, padding and margin constants and add to theme.
+- Maybe if styles come more complex, separate it into an specific style file for each component.
+- Syndication component it's kind of big, but it's okay. If it's needed to manage more logic, it's important to organice better the folder into subcomponents, but it's only create the folders and separate the style files.
+- For now it's not needed a global store, but, if it's required we can use useContext hook from react (The simple way), or there in the literature are some interesting libraries as Redux (Complex) or Recoil (Easy).
+- Manage all the icons by a separated component, and change class system to maybe propertys.
